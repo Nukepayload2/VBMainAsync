@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>SampleConsoleApp</RootNamespace>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference OutputItemType="Analyzer" ReferenceOutputAssembly="False"
+                      Include="..\Nukepayload2.SourceGenerators.VBMainAsync\Nukepayload2.SourceGenerators.VBMainAsync.vbproj" />
+  </ItemGroup>
+
+</Project>
