@@ -1,3 +1,5 @@
+Option Strict On
+
 Imports System.Text
 Imports Microsoft.CodeAnalysis
 Imports Microsoft.CodeAnalysis.VisualBasic.Syntax
@@ -40,11 +42,15 @@ Public Class AsyncMainGenerator
                     )
                     Select MethodSymbol, NoParams
                 )
-            Select ModuleName = moduleSymbol.Name, MainAsync = MainAsync.FirstOrDefault
+            Select ModuleName = moduleSymbol.Name,
+                ModuleNamespace = GetAbsoluteNamespace(moduleSymbol.ContainingNamespace),
+                MainAsync = MainAsync.FirstOrDefault
             Where MainAsync IsNot Nothing
 
         Const Indent = "    "
-        Const Indent2 = Indent + Indent
+        Const Indent2 = Indent & Indent
+        Const Indent3 = Indent2 & Indent
+
         Dim code As New StringBuilder
         For Each symbol In mainAsyncSymbols
             Dim argDecl = String.Empty
@@ -54,16 +60,27 @@ Public Class AsyncMainGenerator
                 argCall = "(args)"
             End If
 
-            code.AppendLine($"Partial Module {symbol.ModuleName}
-{Indent}Sub Main({argDecl})
-{Indent2}{symbol.MainAsync.MethodSymbol.Name}{argCall}.GetAwaiter.GetResult()
-{Indent}End Sub
-End Module")
+            code.AppendLine($"Option Strict On
+
+Namespace {symbol.ModuleNamespace}
+{Indent}Partial Module {symbol.ModuleName}
+{Indent2}Sub Main({argDecl})
+{Indent3}{symbol.MainAsync.MethodSymbol.Name}{argCall}.GetAwaiter.GetResult()
+{Indent2}End Sub
+{Indent}End Module
+End Namespace")
         Next
 
         If code.Length = 0 Then Return
         context.AddSource("GeneratedStartupObjects", code.ToString)
     End Sub
+
+    Private Shared Function GetAbsoluteNamespace(ns As INamespaceSymbol) As String
+        If ns Is Nothing Then
+            Return "Global"
+        End If
+        Return "Global." & ns.ToDisplayString
+    End Function
 
     Private Class AllModulesSyntaxReceiver
         Implements ISyntaxReceiver
