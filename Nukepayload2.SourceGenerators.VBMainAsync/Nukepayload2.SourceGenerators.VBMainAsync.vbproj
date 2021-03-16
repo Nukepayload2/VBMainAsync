@@ -3,7 +3,7 @@
   <PropertyGroup>
     <RootNamespace>Nukepayload2.SourceGenerators.VBMainAsync</RootNamespace>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <Description>Provides async startup object support for VB 16.9+ .
 Requires .NET SDK &gt;= 5.0.200 .
@@ -19,6 +19,9 @@ Supports modules in the root namespace only.</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/Nukepayload2/VBMainAsync</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>vb, source generator, async main, startup object, visualbasic</PackageTags>
+    <Authors>Nukepayload2</Authors>
+    <Company>Nukepayload2</Company>
+    <Product>Nukepayload2</Product>
   </PropertyGroup>
 
   <ItemGroup>
