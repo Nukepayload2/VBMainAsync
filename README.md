@@ -1,6 +1,8 @@
 # VBMainAsync
 Async entry point support for VB (16.9+)
 
+https://www.nuget.org/packages/Nukepayload2.SourceGenerators.VBMainAsync
+
 ## Requirements
 - Visual Studio 16.9 preview 2 or later
 - .NET SDK 5.0.2 or later
